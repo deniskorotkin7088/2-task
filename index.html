@@ -12,21 +12,48 @@
     <div id="app">
         <h1>Мои заметки</h1>
         <div class="columns">
-            <div class="column">
-                <h2>Колонка 1</h2>
-                <div class="cards">
+             <h2>
+                Колонка 1 
+                <span class="count">{{ column1.length }}/3</span>
+            </h2>
+            <div class="cards">
+                <div v-if="column1.length === 0" class="empty-message">
+                    Нет карточек
                 </div>
             </div>
-            <div class="column">
-                <h2>Колонка 2</h2>
-                <div class="cards">
+            <button 
+                v-if="column1.length < 3" 
+                @click="addCard(1)" 
+                class="add-btn">
+                + Добавить карточку
+            </button>
+        </div>
+        <div class="column">
+            <h2>
+                Колонка 2 
+                <span class="count">{{ column2.length }}/5</span>
+            </h2>
+            <div class="cards">
+                <div v-if="column2.length === 0" class="empty-message">
+                    Нет карточек
                 </div>
             </div>
-            <div class="column">
-                <h2>Колонка 3</h2>
-                <div class="cards">
+            <button 
+                v-if="column2.length < 5" 
+                @click="addCard(2)" 
+                class="add-btn">
+                + Добавить карточку
+            </button>
+        </div>
+        <h2>Колонка 3</h2>
+            <div class="cards">
+                <div v-if="column3.length === 0" class="empty-message">
+                    Нет карточек
                 </div>
             </div>
+            <button @click="addCard(3)" class="add-btn">
+                + Добавить карточку
+            </button>
         </div>
     </div>
 </body>
