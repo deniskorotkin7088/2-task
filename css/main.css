@@ -76,3 +76,49 @@ h1 {
     padding: 20px;
     font-style: italic;
 }
+.card {
+    background: #f9f9f9;
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-left: 4px solid #007bff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.card-header {
+    margin-bottom: 10px;
+}
+
+.title-input {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.title-input:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.card-body {
+    font-size: 13px;
+    color: #666;
+}
+
+.card-body p {
+    margin: 5px 0;
+}
+
+.column:nth-child(1) .card {
+    border-left-color: #dc3545;
+}
+
+.column:nth-child(2) .card {
+    border-left-color: #ffc107;
+}
+
+.column:nth-child(3) .card {
+    border-left-color: #28a745;
+}

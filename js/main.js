@@ -1,11 +1,65 @@
+Vue.component('note-card', {
+    template: `
+        <div class="card">
+            <div class="card-header">
+                <input 
+                    type="text" 
+                    v-model="card.title" 
+                    placeholder="Заголовок карточки"
+                    class="title-input">
+            </div>
+            <div class="card-body">
+                <p>Колонка: {{ card.column }}</p>
+                <p>Пунктов: {{ card.items.length }}</p>
+            </div>
+        </div>
+    `,
+    props: {
+        card: {
+            type: Object,
+            required: true
+        }
+    }
+});
+
 let app = new Vue({
     el: '#app',
     data: {
         cards: [
             {
                 id: 1,
-                title: 'Тестовая карточка',
+                title: 'Заметка 1',
                 column: 1,
+                items: [
+                    { text: 'Пункт 1', done: false },
+                    { text: 'Пункт 2', done: false },
+                    { text: 'Пункт 3', done: false }
+                ]
+            },
+            {
+                id: 2,
+                title: 'Заметка 2',
+                column: 1,
+                items: [
+                    { text: 'Пункт 1', done: false },
+                    { text: 'Пункт 2', done: false },
+                    { text: 'Пункт 3', done: false }
+                ]
+            },
+            {
+                id: 3,
+                title: 'Заметка 3',
+                column: 2,
+                items: [
+                    { text: 'Пункт 1', done: false },
+                    { text: 'Пункт 2', done: false },
+                    { text: 'Пункт 3', done: false }
+                ]
+            },
+            {
+                id: 4,
+                title: 'Заметка 4',
+                column: 3,
                 items: [
                     { text: 'Пункт 1', done: false },
                     { text: 'Пункт 2', done: false },
@@ -32,9 +86,9 @@ let app = new Vue({
                 title: 'Новая карточка',
                 column: column,
                 items: [
-                    { text: 'Пункт 1', done: false },
-                    { text: 'Пункт 2', done: false },
-                    { text: 'Пункт 3', done: false }
+                    { text: '', done: false },
+                    { text: '', done: false },
+                    { text: '', done: false }
                 ]
             };
             this.cards.push(newCard);
@@ -43,6 +97,6 @@ let app = new Vue({
     },
     mounted() {
         console.log('Notes App запущена');
-        console.log('Текущие карточки:', this.cards);
+        console.log('Компонент note-card создан');
     }
 });

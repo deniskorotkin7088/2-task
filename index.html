@@ -17,6 +17,11 @@
                 <span class="count">{{ column1.length }}/3</span>
             </h2>
             <div class="cards">
+                <note-card
+                    v-for="card in column1"
+                    :key="card.id"
+                    :card="card">
+                </note-card>
                 <div v-if="column1.length === 0" class="empty-message">
                     Нет карточек
                 </div>
@@ -34,6 +39,11 @@
                 <span class="count">{{ column2.length }}/5</span>
             </h2>
             <div class="cards">
+                <note-card
+                    v-for="card in column2"
+                    :key="card.id"
+                    :card="card">
+                </note-card>
                 <div v-if="column2.length === 0" class="empty-message">
                     Нет карточек
                 </div>
@@ -45,8 +55,14 @@
                 + Добавить карточку
             </button>
         </div>
-        <h2>Колонка 3</h2>
+        <div class="column">
+            <h2>Колонка 3</h2>
             <div class="cards">
+                <note-card
+                    v-for="card in column3"
+                    :key="card.id"
+                    :card="card">
+                </note-card>
                 <div v-if="column3.length === 0" class="empty-message">
                     Нет карточек
                 </div>
@@ -54,6 +70,7 @@
             <button @click="addCard(3)" class="add-btn">
                 + Добавить карточку
             </button>
+        </div>
         </div>
     </div>
 </body>
