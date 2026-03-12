@@ -20,7 +20,8 @@
                 <note-card
                     v-for="card in column1"
                     :key="card.id"
-                    :card="card">
+                    :card="card"
+                    @update="saveToStorage">
                 </note-card>
                 <div v-if="column1.length === 0" class="empty-message">
                     Нет карточек
@@ -29,7 +30,8 @@
             <button 
                 v-if="column1.length < 3" 
                 @click="addCard(1)" 
-                class="add-btn">
+                class="add-btn"
+                @update="saveToStorage">
                 + Добавить карточку
             </button>
         </div>
@@ -42,7 +44,8 @@
                 <note-card
                     v-for="card in column2"
                     :key="card.id"
-                    :card="card">
+                    :card="card"
+                    @update="saveToStorage">
                 </note-card>
                 <div v-if="column2.length === 0" class="empty-message">
                     Нет карточек

@@ -8,9 +8,34 @@ Vue.component('note-card', {
                     placeholder="Заголовок карточки"
                     class="title-input">
             </div>
-            <div class="card-body">
-                <p>Колонка: {{ card.column }}</p>
-                <p>Пунктов: {{ card.items.length }}</p>
+            <div class="checklist">
+                <div v-for="(item, index) in card.items" :key="index" class="checklist-item">
+                    <label>
+                        <input 
+                            type="checkbox" 
+                            v-model="item.done"
+                            @change="updateItems">
+                        <input 
+                            type="text" 
+                            v-model="item.text" 
+                            :placeholder="'Пункт ' + (index + 1)"
+                            class="item-input"
+                            @input="updateItems">
+                    </label>
+                    <button 
+                        v-if="card.items.length > 3" 
+                        @click="removeItem(index)"
+                        class="remove-btn">×</button>
+                </div>
+                <button 
+                    v-if="card.items.length < 5" 
+                    @click="addItem" 
+                    class="add-item-btn">
+                    + Добавить пункт
+                </button>
+            </div>
+            <div class="items-counter">
+                Пунктов: {{ card.items.length }}/5
             </div>
         </div>
     `,
@@ -19,51 +44,59 @@ Vue.component('note-card', {
             type: Object,
             required: true
         }
+    },
+    methods: {
+        addItem() {
+            if (this.card.items.length < 5) {
+                this.card.items.push({ text: '', done: false });
+                this.$emit('update');
+            }
+        },
+        removeItem(index) {
+            if (this.card.items.length > 3) {
+                this.card.items.splice(index, 1);
+                this.$emit('update');
+            }
+        },
+        
+        updateItems() {
+            this.$emit('update');
+        }
     }
 });
-
 let app = new Vue({
     el: '#app',
     data: {
         cards: [
             {
                 id: 1,
-                title: 'Заметка 1',
+                title: 'Покупки',
                 column: 1,
                 items: [
-                    { text: 'Пункт 1', done: false },
-                    { text: 'Пункт 2', done: false },
-                    { text: 'Пункт 3', done: false }
+                    { text: 'Молоко', done: false },
+                    { text: 'Хлеб', done: false },
+                    { text: 'Яйца', done: false }
                 ]
             },
             {
                 id: 2,
-                title: 'Заметка 2',
+                title: 'Задачи по работе',
                 column: 1,
                 items: [
-                    { text: 'Пункт 1', done: false },
-                    { text: 'Пункт 2', done: false },
-                    { text: 'Пункт 3', done: false }
+                    { text: 'Написать отчет', done: true },
+                    { text: 'Созвониться с клиентом', done: false },
+                    { text: 'Отправить письмо', done: false }
                 ]
             },
             {
                 id: 3,
-                title: 'Заметка 3',
+                title: 'Идеи для проекта',
                 column: 2,
                 items: [
-                    { text: 'Пункт 1', done: false },
-                    { text: 'Пункт 2', done: false },
-                    { text: 'Пункт 3', done: false }
-                ]
-            },
-            {
-                id: 4,
-                title: 'Заметка 4',
-                column: 3,
-                items: [
-                    { text: 'Пункт 1', done: false },
-                    { text: 'Пункт 2', done: false },
-                    { text: 'Пункт 3', done: false }
+                    { text: 'Добавить анимацию', done: false },
+                    { text: 'Улучшить дизайн', done: false },
+                    { text: 'Оптимизировать код', done: false },
+                    { text: 'Написать тесты', done: false }
                 ]
             }
         ]
@@ -96,7 +129,6 @@ let app = new Vue({
         }
     },
     mounted() {
-        console.log('Notes App запущена');
-        console.log('Компонент note-card создан');
+        console.log('Notes App с чек-листами запущена!');
     }
 });
