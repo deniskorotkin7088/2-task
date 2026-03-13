@@ -1,4 +1,3 @@
-// КОМПОНЕНТ КАРТОЧКИ - как в методичке (стр. 46-48)
 Vue.component('note-card', {
     template: `
         <div class="card">
@@ -9,13 +8,9 @@ Vue.component('note-card', {
                     placeholder="Заголовок"
                     class="title-input">
             </div>
-            
-            <!-- ПРОГРЕСС - как вычисляемое свойство (стр. 38-45) -->
             <div class="progress">
                 Прогресс: {{ progress }}%
             </div>
-            
-            <!-- ЧЕК-ЛИСТ - как в методичке (стр. 20-25) -->
             <div class="checklist">
                 <div v-for="(item, index) in card.items" :key="index" class="checklist-item">
                     <label>
@@ -39,7 +34,6 @@ Vue.component('note-card', {
             required: true
         }
     },
-    // ВЫЧИСЛЯЕМЫЕ СВОЙСТВА (стр. 38-45)
     computed: {
         progress() {
             if (!this.card.items || this.card.items.length === 0) return 0;
@@ -50,12 +44,13 @@ Vue.component('note-card', {
     },
     methods: {
         updateProgress() {
-            this.$emit('update', this.progress);
+            this.$emit('update', {
+                id: this.card.id,
+                progress: this.progress
+            });
         }
     }
 });
-
-// Корневой экземпляр Vue (стр. 5-9)
 let app = new Vue({
     el: '#app',
     data: {
@@ -65,7 +60,7 @@ let app = new Vue({
                 title: 'Покупки',
                 column: 1,
                 items: [
-                    { text: 'Молоко', done: true },
+                    { text: 'Молоко', done: false },
                     { text: 'Хлеб', done: false },
                     { text: 'Яйца', done: false }
                 ]
@@ -73,10 +68,10 @@ let app = new Vue({
             {
                 id: 2,
                 title: 'Работа',
-                column: 1,
+                column: 2,
                 items: [
-                    { text: 'Отчет', done: true },
-                    { text: 'Звонок', done: true },
+                    { text: 'Отчет', done: false },
+                    { text: 'Звонок', done: false },
                     { text: 'Письмо', done: false }
                 ]
             }
@@ -91,6 +86,22 @@ let app = new Vue({
         },
         column3() {
             return this.cards.filter(c => c.column === 3);
+        }
+    },
+    methods: {
+        handleUpdate(data) {
+            const card = this.cards.find(c => c.id === data.id);
+            if (!card) return;
+            if (card.column === 1 && data.progress > 50) {
+                if (this.column2.length < 5) {
+                    card.column = 2;
+                    console.log('Карточка перемещена в колонку 2');
+                }
+            }
+            if ((card.column === 1 || card.column === 2) && data.progress === 100) {
+                card.column = 3;
+                console.log('Карточка перемещена в колонку 3');
+            }
         }
     }
 });
