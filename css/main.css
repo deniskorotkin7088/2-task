@@ -6,19 +6,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: #f0f2f5;
     padding: 20px;
-}
-
-#app {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-h1 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #333;
 }
 
 .columns {
@@ -28,182 +16,20 @@ h1 {
 
 .column {
     flex: 1;
-    background: white;
-    border-radius: 8px;
-    padding: 15px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    min-height: 400px;
-}
-
-.column h2 {
-    margin-bottom: 15px;
-    font-size: 18px;
-    color: #555;
-    border-bottom: 2px solid #eee;
-    padding-bottom: 10px;
-}
-
-.cards {
-    min-height: 300px;
-}
-.count {
-    background: #007bff;
-    color: white;
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-size: 14px;
-}
-
-.add-btn {
-    width: 100%;
+    border: 1px solid #ccc;
     padding: 10px;
-    background: #28a745;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 15px;
-    font-size: 14px;
 }
 
-.add-btn:hover {
-    background: #218838;
-}
-
-.empty-message {
-    text-align: center;
-    color: #999;
-    padding: 20px;
-    font-style: italic;
-}
 .card {
-    background: #f9f9f9;
-    border-radius: 6px;
-    padding: 12px;
-    margin-bottom: 12px;
-    border-left: 4px solid #007bff;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-.card-header {
+    border: 1px solid #ddd;
+    padding: 10px;
     margin-bottom: 10px;
 }
 
-.title-input {
-    width: 100%;
-    padding: 6px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-}
-
-.title-input:focus {
-    outline: none;
-    border-color: #007bff;
-}
-
-.card-body {
-    font-size: 13px;
-    color: #666;
-}
-
-.card-body p {
+.checklist-item {
     margin: 5px 0;
 }
 
-.column:nth-child(1) .card {
-    border-left-color: #dc3545;
-}
-
-.column:nth-child(2) .card {
-    border-left-color: #ffc107;
-}
-
-.column:nth-child(3) .card {
-    border-left-color: #28a745;
-}
-/* Стили для чек-листа */
-.checklist {
-    margin: 10px 0;
-}
-
-.checklist-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 8px;
-}
-
-.checklist-item label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex: 1;
-    cursor: pointer;
-}
-
-.checklist-item input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-}
-
-.item-input {
-    flex: 1;
-    padding: 4px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 13px;
-}
-
-.item-input:focus {
-    outline: none;
-    border-color: #007bff;
-}
-
-/* Стиль для выполненных пунктов */
-input[type="checkbox"]:checked + .item-input {
-    text-decoration: line-through;
-    color: #999;
-}
-
-.remove-btn {
-    background: #dc3545;
-    color: white;
-    border: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-}
-
-.remove-btn:hover {
-    background: #c82333;
-}
-
-.add-item-btn {
-    background: #28a745;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 12px;
-    margin-top: 5px;
-    width: 100%;
-}
-
-.add-item-btn:hover {
-    background: #218838;
-}
-
-.items-counter {
-    font-size: 11px;
-    color: #999;
-    text-align: right;
-    margin-top: 8px;
+input {
+    margin: 5px;
 }

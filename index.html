@@ -10,54 +10,34 @@
 </head>
 <body>
     <div id="app">
-        <h1>Мои заметки</h1>
-        <div class="columns">
-             <h2>
-                Колонка 1 
-                <span class="count">{{ column1.length }}/3</span>
-            </h2>
+    <h1>Мои заметки</h1>
+    
+    <div class="columns">
+        <!-- Колонка 1 -->
+        <div class="column">
+            <h2>Колонка 1 ({{ column1.length }}/3)</h2>
             <div class="cards">
                 <note-card
                     v-for="card in column1"
                     :key="card.id"
-                    :card="card"
-                    @update="saveToStorage">
+                    :card="card">
                 </note-card>
-                <div v-if="column1.length === 0" class="empty-message">
-                    Нет карточек
-                </div>
             </div>
-            <button 
-                v-if="column1.length < 3" 
-                @click="addCard(1)" 
-                class="add-btn"
-                @update="saveToStorage">
-                + Добавить карточку
-            </button>
         </div>
+        
+        <!-- Колонка 2 -->
         <div class="column">
-            <h2>
-                Колонка 2 
-                <span class="count">{{ column2.length }}/5</span>
-            </h2>
+            <h2>Колонка 2 ({{ column2.length }}/5)</h2>
             <div class="cards">
                 <note-card
                     v-for="card in column2"
                     :key="card.id"
-                    :card="card"
-                    @update="saveToStorage">
+                    :card="card">
                 </note-card>
-                <div v-if="column2.length === 0" class="empty-message">
-                    Нет карточек
-                </div>
             </div>
-            <button 
-                v-if="column2.length < 5" 
-                @click="addCard(2)" 
-                class="add-btn">
-                + Добавить карточку
-            </button>
         </div>
+        
+        <!-- Колонка 3 -->
         <div class="column">
             <h2>Колонка 3</h2>
             <div class="cards">
@@ -66,15 +46,9 @@
                     :key="card.id"
                     :card="card">
                 </note-card>
-                <div v-if="column3.length === 0" class="empty-message">
-                    Нет карточек
-                </div>
             </div>
-            <button @click="addCard(3)" class="add-btn">
-                + Добавить карточку
-            </button>
-        </div>
         </div>
     </div>
+</div>
 </body>
 </html>

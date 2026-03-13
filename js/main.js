@@ -1,3 +1,4 @@
+// КОМПОНЕНТ КАРТОЧКИ - как в методичке (стр. 46-48)
 Vue.component('note-card', {
     template: `
         <div class="card">
@@ -5,37 +6,30 @@ Vue.component('note-card', {
                 <input 
                     type="text" 
                     v-model="card.title" 
-                    placeholder="Заголовок карточки"
+                    placeholder="Заголовок"
                     class="title-input">
             </div>
+            
+            <!-- ПРОГРЕСС - как вычисляемое свойство (стр. 38-45) -->
+            <div class="progress">
+                Прогресс: {{ progress }}%
+            </div>
+            
+            <!-- ЧЕК-ЛИСТ - как в методичке (стр. 20-25) -->
             <div class="checklist">
                 <div v-for="(item, index) in card.items" :key="index" class="checklist-item">
                     <label>
                         <input 
                             type="checkbox" 
                             v-model="item.done"
-                            @change="updateItems">
+                            @change="updateProgress">
                         <input 
                             type="text" 
                             v-model="item.text" 
-                            :placeholder="'Пункт ' + (index + 1)"
-                            class="item-input"
-                            @input="updateItems">
+                            placeholder="Пункт"
+                            class="item-input">
                     </label>
-                    <button 
-                        v-if="card.items.length > 3" 
-                        @click="removeItem(index)"
-                        class="remove-btn">×</button>
                 </div>
-                <button 
-                    v-if="card.items.length < 5" 
-                    @click="addItem" 
-                    class="add-item-btn">
-                    + Добавить пункт
-                </button>
-            </div>
-            <div class="items-counter">
-                Пунктов: {{ card.items.length }}/5
             </div>
         </div>
     `,
@@ -45,25 +39,23 @@ Vue.component('note-card', {
             required: true
         }
     },
+    // ВЫЧИСЛЯЕМЫЕ СВОЙСТВА (стр. 38-45)
+    computed: {
+        progress() {
+            if (!this.card.items || this.card.items.length === 0) return 0;
+            const total = this.card.items.length;
+            const done = this.card.items.filter(item => item.done).length;
+            return Math.round((done / total) * 100);
+        }
+    },
     methods: {
-        addItem() {
-            if (this.card.items.length < 5) {
-                this.card.items.push({ text: '', done: false });
-                this.$emit('update');
-            }
-        },
-        removeItem(index) {
-            if (this.card.items.length > 3) {
-                this.card.items.splice(index, 1);
-                this.$emit('update');
-            }
-        },
-        
-        updateItems() {
-            this.$emit('update');
+        updateProgress() {
+            this.$emit('update', this.progress);
         }
     }
 });
+
+// Корневой экземпляр Vue (стр. 5-9)
 let app = new Vue({
     el: '#app',
     data: {
@@ -73,62 +65,32 @@ let app = new Vue({
                 title: 'Покупки',
                 column: 1,
                 items: [
-                    { text: 'Молоко', done: false },
+                    { text: 'Молоко', done: true },
                     { text: 'Хлеб', done: false },
                     { text: 'Яйца', done: false }
                 ]
             },
             {
                 id: 2,
-                title: 'Задачи по работе',
+                title: 'Работа',
                 column: 1,
                 items: [
-                    { text: 'Написать отчет', done: true },
-                    { text: 'Созвониться с клиентом', done: false },
-                    { text: 'Отправить письмо', done: false }
-                ]
-            },
-            {
-                id: 3,
-                title: 'Идеи для проекта',
-                column: 2,
-                items: [
-                    { text: 'Добавить анимацию', done: false },
-                    { text: 'Улучшить дизайн', done: false },
-                    { text: 'Оптимизировать код', done: false },
-                    { text: 'Написать тесты', done: false }
+                    { text: 'Отчет', done: true },
+                    { text: 'Звонок', done: true },
+                    { text: 'Письмо', done: false }
                 ]
             }
         ]
     },
     computed: {
         column1() {
-            return this.cards.filter(card => card.column === 1);
+            return this.cards.filter(c => c.column === 1);
         },
         column2() {
-            return this.cards.filter(card => card.column === 2);
+            return this.cards.filter(c => c.column === 2);
         },
         column3() {
-            return this.cards.filter(card => card.column === 3);
+            return this.cards.filter(c => c.column === 3);
         }
-    },
-    methods: {
-        addCard(column) {
-            const newCard = {
-                id: Date.now(),
-                title: 'Новая карточка',
-                column: column,
-                items: [
-                    { text: '', done: false },
-                    { text: '', done: false },
-                    { text: '', done: false }
-                ]
-            };
-            this.cards.push(newCard);
-            console.log('Добавлена карточка в колонку', column);
-        }
-    },
-    mounted() {
-        console.log('Notes App с чек-листами запущена!');
     }
 });
