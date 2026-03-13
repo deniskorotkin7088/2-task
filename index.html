@@ -11,10 +11,16 @@
 <body>
     <div id="app">
     <h1>Мои заметки</h1>
+    <div v-if="isColumn1Blocked" class="blocked-message">
+         Колонка 1 заблокирована (колонка 2 переполнена)
+    </div>
     <div class="columns">
         <div class="column">
-            <h2>Колонка 1 ({{ column1.length }}/3)</h2>
-            <div class="cards">
+            <h2>
+                Колонка 1 ({{ column1.length }}/3)
+                <span v-if="isColumn1Blocked" class="blocked-icon"></span>
+            </h2>
+            <div class="cards" :class="{ 'blocked': isColumn1Blocked }">
                 <note-card
                     v-for="card in column1"
                     :key="card.id"
@@ -22,6 +28,12 @@
                     @update="handleUpdate">
                 </note-card>
             </div>
+            <button 
+                v-if="column1.length < 3" 
+                @click="addCard(1)" 
+                class="add-btn">
+                + Добавить карточку
+            </button>
         </div>
         <div class="column">
             <h2>Колонка 2 ({{ column2.length }}/5)</h2>
@@ -33,6 +45,12 @@
                     @update="handleUpdate">
                 </note-card>
             </div>
+            <button 
+                v-if="column2.length < 5" 
+                @click="addCard(2)" 
+                class="add-btn">
+                + Добавить карточку
+            </button>
         </div>
         <div class="column">
             <h2>Колонка 3</h2>
@@ -44,6 +62,9 @@
                     @update="handleUpdate">
                 </note-card>
             </div>
+            <button @click="addCard(3)" class="add-btn">
+                + Добавить карточку
+            </button>
         </div>
     </div>
 </div>
